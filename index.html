@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Wellora AI</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%231E2024'/%3E%3Ccircle cx='16' cy='14' r='6' fill='%23F6A609'/%3E%3Cpath d='M8 23c4-5 12-5 16 0' stroke='%23F6A609' stroke-width='2.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;600;800&display=swap">
+<style>
+:root{--bg:#FAF9F6;--sf:#fff;--ink:#1E2024;--mut:#5E636B;--ln:#E8E4DA;--ac:#F6A609;--acd:#8A5600;--acs:#FFF3D6;--r:18px}
+@media(prefers-color-scheme:dark){:root{--bg:#0B1426;--sf:#13203A;--ink:#EAF0FB;--mut:#9FB0CC;--ln:#233554;--ac:#F6B93B;--acd:#F6B93B;--acs:#1B2C4D}}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%}
+body{font-family:'Plus Jakarta Sans','Noto Sans Devanagari',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--ac);outline-offset:2px}
+.wrap{max-width:560px;margin:0 auto;padding:20px 18px 110px}
+.card{background:var(--sf);border:1px solid var(--ln);border-radius:var(--r);padding:18px;margin:0 0 14px}
+h1{font-size:1.7rem;line-height:1.2;margin:16px 0 6px}h2{font-size:1.1rem;margin:0 0 10px}p{margin:0 0 10px}
+.mut{color:var(--mut);font-size:.9rem}
+label{display:block;font-weight:600;font-size:.9rem;margin:12px 0 6px}
+input,select,textarea{width:100%;padding:12px 14px;border:1.5px solid var(--ln);border-radius:12px;background:var(--bg)}
+.btn{display:inline-flex;gap:8px;align-items:center;justify-content:center;border:0;border-radius:12px;padding:12px 18px;font-weight:700;cursor:pointer;background:var(--ac);color:#1E2024}
+.btn.sec{background:transparent;border:1.5px solid var(--ln);color:var(--ink)}.btn.sm{padding:7px 12px;font-size:.85rem}.btn.full{width:100%;margin-top:14px}
+.btn:disabled{opacity:.55;cursor:default}
+.row{display:flex;gap:10px;align-items:center}.row>*{flex:1}.sb{justify-content:space-between}.row>.fx{flex:none}
+.ico{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.4rem}.logo .ico{width:30px;height:30px;color:var(--ac)}
+.login{min-height:100vh;display:grid;place-items:center;padding:20px}.login .card{width:100%;max-width:420px;padding:28px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}.chip{position:relative}.chip input{position:absolute;opacity:0;width:1px;height:1px}
+.chip span{display:inline-block;padding:9px 14px;border:1.5px solid var(--ln);border-radius:99px;cursor:pointer;font-weight:600;font-size:.9rem}
+.chip input:checked+span{background:var(--acs);border-color:var(--ac);color:var(--acd)}.chip input:focus-visible+span{outline:3px solid var(--ac)}
+.steps{display:flex;gap:6px;margin:0 0 6px}.steps i{flex:1;height:4px;border-radius:9px;background:var(--ln)}.steps i.on{background:var(--ac)}
+.bmi{background:var(--acs);color:var(--acd);border-radius:14px;padding:12px 14px;font-weight:600;margin-top:14px}
+.cover{height:110px;border-radius:var(--r) var(--r) 0 0;margin:-18px -18px 0;background:linear-gradient(120deg,#1E2024,#3a3220 55%,var(--ac))}
+.av{width:92px;height:92px;border-radius:50%;background:var(--ac);color:#1E2024;display:grid;place-items:center;font-weight:800;font-size:2rem;border:4px solid var(--sf);margin-top:-46px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:14px 0;text-align:center}.stats b{display:block;font-size:1.15rem}.stats span{font-size:.75rem;color:var(--mut)}
+.tag{display:inline-block;font-size:.8rem;font-weight:700;background:var(--acs);color:var(--acd);border-radius:99px;padding:4px 12px;margin:0 6px 6px 0}
+.pb{height:10px;background:var(--ln);border-radius:99px;overflow:hidden}.pb i{display:block;height:100%;background:var(--ac);border-radius:99px;transition:width .3s}
+.task{display:flex;gap:12px;align-items:center;padding:12px 0;border-top:1px solid var(--ln)}.task:first-of-type{border-top:0}
+.task input{width:22px;height:22px;accent-color:var(--ac);flex:none}.task.done .t{text-decoration:line-through;color:var(--mut)}.tm{font-weight:800;min-width:50px}
+.chat{display:flex;flex-direction:column;gap:8px;margin-bottom:12px}.msg{padding:10px 14px;border-radius:16px;max-width:88%;white-space:pre-wrap}
+.msg.u{align-self:flex-end;background:var(--ac);color:#1E2024}.msg.a{background:var(--sf);border:1px solid var(--ln)}
+.dock{position:sticky;bottom:78px;background:var(--bg);padding:8px 0}.dock .row{gap:8px}
+.mic.on{background:#C0392B;color:#fff}
+.work{white-space:pre-wrap}
+nav{position:fixed;bottom:0;left:0;right:0;background:var(--sf);border-top:1px solid var(--ln);display:flex;justify-content:center;padding:6px 6px calc(6px + env(safe-area-inset-bottom))}
+nav button{flex:1;max-width:110px;background:none;border:0;padding:8px 2px;border-radius:12px;font-size:.72rem;font-weight:600;color:var(--mut);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px}
+nav button[aria-current=page]{color:var(--acd);background:var(--acs)}
+#toast{position:fixed;left:50%;top:14px;transform:translate(-50%,-150%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:12px;font-weight:600;transition:transform .25s;z-index:9;max-width:90vw}
+#toast.on{transform:translate(-50%,0)}
+.lang{display:inline-flex;border:1.5px solid var(--ln);border-radius:99px;overflow:hidden}.lang button{border:0;background:none;padding:5px 12px;font-weight:700;cursor:pointer}.lang button.on{background:var(--ac);color:#1E2024}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<symbol id="i-logo" viewBox="0 0 24 24"><circle cx="12" cy="9" r="4"/><path d="M4 20c3-5 13-5 16 0"/></symbol>
+<symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-8 9 8v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>
+<symbol id="i-work" viewBox="0 0 24 24"><path d="M6 8v8M18 8v8M3 10v4M21 10v4M6 12h12"/></symbol>
+<symbol id="i-chat" viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.5 7.2L4 20l1-4.5A8 8 0 1 1 21 12z"/></symbol>
+<symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></symbol>
+<symbol id="i-mic" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></symbol>
+<symbol id="i-send" viewBox="0 0 24 24"><path d="M4 12l16-8-6 16-3-7z"/></symbol>
+<symbol id="i-drop" viewBox="0 0 24 24"><path d="M12 3c4 5 6 8 6 11a6 6 0 0 1-12 0c0-3 2-6 6-11z"/></symbol>
+<symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 16v-5a6 6 0 0 1 12 0v5l2 2H4zM10 21h4"/></symbol>
+<symbol id="i-stop" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2"/></symbol>
+</defs></svg>
+<div id="app"></div>
+<div id="toast" role="status" aria-live="polite"></div>
+<script>
+const $=s=>document.querySelector(s), API=location.protocol==='file:'?'http://127.0.0.1:8000':'';
+const ld=k=>{try{return JSON.parse(localStorage.getItem(k))}catch{return null}}, sv=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch{}};
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const ic=n=>`<svg class="ico"><use href="#i-${n}"/></svg>`;
+const GOALS=[['loss','Lose weight gently','movement'],['strength','Build strength','movement'],['growth','Healthy growth (teens)','sleep'],['water','Stay hydrated','hydration'],['sleep','Sleep better','sleep'],['stress','Reduce stress','mindfulness'],['active','Stay active','movement'],['meals','Eat regularly','meal']];
+let P=ld('wl_p')||{}, D=Object.assign({},P), S={tab:'home',step:0,chat:[],voice:false,lang:P.lang||'en',busy:false,workout:'',plan:ld('wl_plan')||[],water:ld('wl_w')||{d:'',n:0}};
+const T=(e,h)=>S.lang==='hi'?h:e;
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove('on'),3000)}
+function bmi(h,w){return h&&w?+(w/((h/100)**2)).toFixed(1):null}
+function bmiText(b,age){if(!b)return'';if(age&&age<20)return`BMI ${b}. For under-20s, BMI is read against age charts, so a doctor can tell you more.`;return`BMI ${b}: ${b<18.5?'below the typical range':b<25?'in the typical range':b<30?'above the typical range':'well above the typical range'}. It is a rough guide, not a diagnosis.`}
+function ctx(){return{name:P.name,bio:P.bio,sex:P.sex,age:P.age,height:P.height,weight:P.weight,bmi:bmi(P.height,P.weight),goals:(P.goals||[]).map(g=>GOALS.find(x=>x[0]===g)?.[1]||g),level:P.level||'beginner',meds:P.meds||''}}
+
+function render(){
+  const a=$('#app');
+  if(!P.session){a.innerHTML=`<div class="login"><div class="card"><div class="logo">${ic('logo')}Wellora</div><h1>Welcome back</h1><p class="mut">Your daily wellness routine, workouts and reminders in one place.</p>
+  <label for="em">Email</label><input id="em" type="email" autocomplete="email" placeholder="you@example.com">
+  <label for="pw">Password</label><input id="pw" type="password" autocomplete="current-password" placeholder="Any password ">
+  <button class="btn full" onclick="login()">Log in</button><p class="mut" style="margin-top:14px">SIGN IN TO GET STARTED.</p></div></div>`;return}
+  if(!P.done){onboard();return}
+  const tabs=[['home','Home','home'],['work','Workout','work'],['chat','Assistant','chat'],['me','Profile','user']];
+  a.innerHTML=`<div class="wrap" id="v"></div><nav>${tabs.map(t=>`<button ${S.tab===t[0]?'aria-current="page"':''} onclick="go('${t[0]}')">${ic(t[2])}${t[1]}</button>`).join('')}</nav>`;
+  ({home:home,work:work,chat:chat,me:me})[S.tab]();
+}
+function go(t){S.tab=t;speechSynthesis.cancel();stopListen();S.voice=false;render()}
+function login(){const e=$('#em').value.trim();if(!/^\S+@\S+\.\S+$/.test(e))return toast('Enter a valid email address');P.session=true;P.email=e;sv('wl_p',P);fetch(API+'/api/demo/session',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:P.name||'Guest',email:e})}).catch(()=>{});render()}
+
+function onboard(){
+  const n=4,s=S.step,a=$('#app');let body='';
+  if(s===0)body=`<h1>About you</h1><p class="mut">This helps personalise your plan and assistant.</p>
+  <label for="nm">Name</label><input id="nm" value="${esc(D.name)}" maxlength="40">
+  <label for="bi">Bio</label><input id="bi" value="${esc(D.bio)}" maxlength="160" placeholder="A line about you">
+  <div class="row"><div><label for="ag">Age</label><input id="ag" type="number" min="5" max="110" value="${D.age||''}"></div><div><label for="sx">Sex</label><select id="sx">${['','Female','Male','Other'].map(o=>`<option ${D.sex===o?'selected':''}>${o}</option>`).join('')}</select></div></div>
+  <div class="row"><div><label for="ht">Height (cm)</label><input id="ht" type="number" min="50" max="250" value="${D.height||''}" oninput="lb()"></div><div><label for="wt">Weight (kg)</label><input id="wt" type="number" min="15" max="300" value="${D.weight||''}" oninput="lb()"></div></div><div id="bm"></div>`;
+  if(s===1)body=`<h1>Medications</h1><p class="mut">Optional. Are you taking any regular medication? The assistant uses this only to keep suggestions gentle. It never gives medicine advice. It is sent to Google Gemini through your backend when you chat.</p>
+  <label for="md">Medications or conditions (leave empty if none)</label><textarea id="md" rows="3" maxlength="200">${esc(D.meds)}</textarea>`;
+  if(s===2)body=`<h1>Your goals</h1><p class="mut">Choose everything that fits.</p><div class="chips">${GOALS.map(g=>`<label class="chip" style="margin:0"><input type="checkbox" value="${g[0]}" ${(D.goals||[]).includes(g[0])?'checked':''}><span>${g[1]}</span></label>`).join('')}</div>`;
+  if(s===3)body=`<h1>Final touches</h1><label for="lv">Fitness level</label><select id="lv"><option value="beginner" ${D.level!=='regular'?'selected':''}>Beginner</option><option value="regular" ${D.level==='regular'?'selected':''}>I exercise regularly</option></select>
+  <div class="row"><div><label for="wk">Wake-up time</label><input id="wk" type="time" value="${D.wake||'07:00'}"></div><div><label for="sl">Bedtime</label><input id="sl" type="time" value="${D.sleep||'23:00'}"></div></div>
+  <label for="lg">Language</label><select id="lg"><option value="en" ${S.lang==='en'?'selected':''}>English</option><option value="hi" ${S.lang==='hi'?'selected':''}>हिन्दी</option></select>`;
+  a.innerHTML=`<div class="wrap"><div class="logo">${ic('logo')}Wellora</div><div class="steps" style="margin-top:16px">${Array.from({length:n},(_,i)=>`<i class="${i<=s?'on':''}"></i>`).join('')}</div>${body}
+  <div class="row" style="margin-top:18px">${s?'<button class="btn sec" onclick="back()">Back</button>':''}<button class="btn" onclick="next()">${s===n-1?'Create my profile':'Continue'}</button></div></div>`;
+  if(s===0)lb();
+}
+function lb(){const b=bmi(+$('#ht').value,+$('#wt').value);$('#bm').innerHTML=b?`<div class="bmi">${esc(bmiText(b,+$('#ag').value))}</div>`:''}
+function collect(){const s=S.step,g=id=>$('#'+id)?.value;
+  if(s===0){const age=+g('ag'),h=+g('ht'),w=+g('wt');if(!g('nm').trim())return toast('Please enter your name'),0;if(!(age>=5&&age<=110&&h>=50&&h<=250&&w>=15&&w<=300))return toast('Check age, height and weight'),0;Object.assign(D,{name:g('nm').trim(),bio:g('bi').trim(),age,sex:g('sx'),height:h,weight:w})}
+  if(s===1)D.meds=g('md').trim();
+  if(s===2)D.goals=[...document.querySelectorAll('.chip input:checked')].map(x=>x.value);
+  if(s===3){D.level=g('lv');D.wake=g('wk');D.sleep=g('sl');S.lang=g('lg')}
+  return 1}
+function back(){S.step--;onboard()}
+function next(){if(!collect())return;if(S.step<3){S.step++;onboard();return}
+  P=Object.assign(P,D,{done:true,lang:S.lang});sv('wl_p',P);S.tab='me';render();genPlan(true)}
+
+function me(){const b=bmi(P.height,P.weight),gs=(P.goals||[]).map(g=>GOALS.find(x=>x[0]===g)?.[1]).filter(Boolean);
+  $('#v').innerHTML=`<div class="card"><div class="cover"></div><div class="av">${esc((P.name||'?')[0].toUpperCase())}</div><h1 style="margin-top:10px">${esc(P.name)}</h1><p class="mut">${esc(P.email||'')}</p><p>${esc(P.bio)||'<span class="mut">No bio yet</span>'}</p>
+  <div class="stats"><div><b>${P.age}</b><span>Age</span></div><div><b>${P.height}</b><span>cm</span></div><div><b>${P.weight}</b><span>kg</span></div><div><b>${b||'-'}</b><span>BMI</span></div></div>
+  <div class="mut" style="margin-bottom:12px">${esc(bmiText(b,P.age))}</div>${gs.map(g=>`<span class="tag">${esc(g)}</span>`).join('')}</div>
+  <div class="card"><h2>Privacy</h2><p class="mut">Profile data is stored in this browser only. When you chat, your profile and message are sent through your backend to Gemini to personalise replies. Not medical advice.</p>
+  <p class="mut">AI status: <b id="ai">checking…</b></p><div class="row"><button class="btn sec sm" onclick="P.done=false;S.step=0;D=Object.assign({},P);render()">Edit profile</button><button class="btn sec sm" onclick="if(confirm('Clear all data on this device?')){localStorage.clear();location.reload()}">Delete my data</button></div>
+  <button class="btn sec sm full" onclick="P.session=false;sv('wl_p',P);render()">Log out</button></div>`;
+  fetch(API+'/api/health').then(r=>r.json()).then(j=>$('#ai').textContent=j.ai==='gemini'?'Gemini connected':'Backend running, no API key').catch(()=>$('#ai').textContent='Backend not reachable')}
+
+const hhmm=()=>new Date().toTimeString().slice(0,5),today=()=>new Date().toDateString();
+function home(){const d=S.plan.filter(x=>x.done).length,t=S.plan.length,wn=S.water.d===today()?S.water.n:0;
+  $('#v').innerHTML=`<h1>${T('Hello','नमस्ते')}, ${esc(P.name)}</h1><p class="mut">${new Date().toLocaleDateString(S.lang==='hi'?'hi-IN':'en-IN',{weekday:'long',day:'numeric',month:'long'})}</p>
+  <div class="card"><div class="row sb"><h2 style="margin:0">${T("Today's routine","आज की दिनचर्या")}</h2><span class="mut fx">${d}/${t}</span></div><div class="pb" style="margin:12px 0"><i style="width:${t?d/t*100:0}%"></i></div>
+  ${t?S.plan.map((x,i)=>`<label class="task ${x.done?'done':''}" style="margin:0"><input type="checkbox" ${x.done?'checked':''} onchange="tick(${i})"><span class="tm">${x.time}</span><span><span class="t">${esc(x.title)}</span><br><span class="mut">${x.dur} min · ${esc(x.why)}</span></span></label>`).join(''):`<p class="mut">No routine yet. Generate one from your goals.</p>`}
+  <div class="row" style="margin-top:12px"><button class="btn sm" id="gp" onclick="genPlan()">${T('Generate my plan','मेरा प्लान बनाएँ')}</button><button class="btn sec sm" onclick="notif()">${ic('bell')}${T('Reminders','रिमाइंडर')}</button></div></div>
+  <div class="card"><div class="row sb"><h2 style="margin:0">${T('Water','पानी')}</h2><span class="mut fx">${wn}/8 ${T('glasses','गिलास')}</span></div><div class="pb" style="margin:12px 0"><i style="width:${Math.min(wn/8,1)*100}%"></i></div><button class="btn sec sm" onclick="addW()">${ic('drop')}${T('Add a glass','एक गिलास जोड़ें')}</button></div>`}
+function tick(i){S.plan[i].done=!S.plan[i].done;sv('wl_plan',S.plan);home()}
+function addW(){S.water={d:today(),n:(S.water.d===today()?S.water.n:0)+1};sv('wl_w',S.water);home()}
+async function genPlan(silent){const b=$('#gp');if(b){b.disabled=true;b.textContent='…'}
+  const focus=[...new Set((P.goals||[]).map(g=>GOALS.find(x=>x[0]===g)?.[2]).filter(Boolean))];
+  try{const r=await fetch(API+'/api/ai/plan',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({lang:S.lang,focus,wake:P.wake||'07:00',sleep:P.sleep||'23:00',level:P.level||'beginner'})});
+    const j=await r.json();S.plan=j.items.sort((a,b)=>a.time.localeCompare(b.time)).map(x=>({...x,done:false,fired:''}));sv('wl_plan',S.plan);if(!silent)toast(T('Plan ready','प्लान तैयार'))}
+  catch{toast('Could not reach the backend. Start it with start.bat or start.sh')}
+  if(S.tab==='home')home()}
+function notif(){if(!('Notification' in window))return toast('Reminders work while this tab is open');Notification.requestPermission().then(p=>toast(p==='granted'?T('Reminders on while this tab is open','रिमाइंडर चालू (टैब खुला रखें)'):T('Allow notifications in your browser to get reminders','ब्राउज़र में नोटिफ़िकेशन की अनुमति दें')))}
+setInterval(()=>{if(!P.done)return;const n=hhmm();S.plan.forEach(x=>{if(x.time===n&&!x.done&&x.fired!==today()){x.fired=today();sv('wl_plan',S.plan);toast(`${x.time} · ${x.title}`);try{if(Notification.permission==='granted')new Notification('Wellora',{body:x.title})}catch{}}})},20000);
+
+function work(){const b=bmi(P.height,P.weight);
+  $('#v').innerHTML=`<h1>${T('Workout','वर्कआउट')}</h1><p class="mut">${T('A gentle bodyweight session built from your profile, level and goals.','आपकी प्रोफ़ाइल, स्तर और लक्ष्यों के अनुसार हल्का बॉडीवेट सत्र।')}</p>
+  <div class="card"><div class="chips">${(P.goals||[]).map(g=>`<span class="tag">${esc(GOALS.find(x=>x[0]===g)?.[1]||g)}</span>`).join('')}<span class="tag">${P.level==='regular'?'Regular':'Beginner'}</span></div>
+  <div class="row" style="margin-top:8px"><button class="btn" id="wb" onclick="genWork()">${T("Generate today's workout","आज का वर्कआउट बनाएँ")}</button></div>
+  <div class="work" id="wo" style="margin-top:14px">${esc(S.workout)}</div>${b&&(b<18.5||b>=30)?`<p class="mut" style="margin-top:10px">${T('Given your BMI, check with a doctor before starting something new.','आपके BMI को देखते हुए, कुछ नया शुरू करने से पहले डॉक्टर से पूछ लें।')}</p>`:''}</div>
+  <p class="mut">${T('General wellness information, not medical advice. Stop if anything hurts.','यह सामान्य वेलनेस जानकारी है, चिकित्सा सलाह नहीं। दर्द हो तो रुकें।')}</p>`}
+async function genWork(){const btn=$('#wb');btn.disabled=true;S.workout='';$('#wo').textContent='…';
+  const t=await stream(T('Plan my workout for today.','आज के लिए मेरा वर्कआउट बनाओ।'),'workout',x=>{S.workout=x;if($('#wo'))$('#wo').textContent=x});
+  if($('#wb'))$('#wb').disabled=false}
+
+async function stream(text,mode,onText){let out='';
+  try{const r=await fetch(API+'/api/ai/stream',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:text,lang:S.lang,mode,profile:ctx(),history:mode==='chat'?S.chat.slice(-9,-1).filter(m=>m.text).map(m=>({role:m.r,text:m.text})):[]})});
+    if(!r.ok||!r.body)throw 0;const rd=r.body.getReader(),dc=new TextDecoder();let buf='',err='',det='';
+    for(;;){const{value,done}=await rd.read();if(done)break;buf+=dc.decode(value,{stream:true});const parts=buf.split('\n\n');buf=parts.pop();
+      for(const p of parts){if(!p.startsWith('data:'))continue;try{const j=JSON.parse(p.slice(5));if(j.t){out+=j.t;onText(out)}if(j.err){err=j.err;det=j.detail||''}}catch{}}}
+    if(!out)onText(err==='nokey'?'':T('The AI did not respond. Check your API key and internet connection, then try again.','AI ने जवाब नहीं दिया। API key और इंटरनेट जाँचकर फिर कोशिश करें।')+(det?' ['+det+']':''))
+  }catch{out='';onText(T('Cannot reach the backend. Start it with start.bat or start.sh and open http://127.0.0.1:8000.','बैकएंड से जुड़ नहीं पा रहे। start.bat या start.sh चलाकर http://127.0.0.1:8000 खोलें।'))}
+  return out}
+
+const SR=window.SpeechRecognition||window.webkitSpeechRecognition;let rec;
+function chat(){
+  $('#v').innerHTML=`<div class="row sb" style="margin-bottom:10px"><h1 style="margin:0">${T('Assistant','असिस्टेंट')}</h1><div class="lang fx" role="group" aria-label="Language"><button class="${S.lang==='en'?'on':''}" onclick="setLang('en')">EN</button><button class="${S.lang==='hi'?'on':''}" onclick="setLang('hi')">हि</button></div></div>
+  <div class="chat" id="c">${S.chat.length?S.chat.map(m=>`<div class="msg ${m.r}">${esc(m.text)}</div>`).join(''):`<p class="mut">${T('Ask about workouts, hydration, meals or sleep. Tap the mic to talk.','वर्कआउट, पानी, खाना या नींद के बारे में पूछें। बोलने के लिए माइक दबाएँ।')}</p>`}</div>
+  <div class="dock"><div class="chips" style="margin-bottom:8px">${[['Plan my water intake','मेरा पानी का प्लान बनाओ'],['Suggest a sleep routine','नींद की दिनचर्या बताओ'],['Easy Indian dinner ideas','हल्के भारतीय डिनर आइडिया']].map(q=>`<button class="btn sec sm" onclick="ask(this.dataset.q)" data-q="${T(q[0],q[1])}">${T(q[0],q[1])}</button>`).join('')}</div>
+  <div class="row"><input id="q" placeholder="${T('Type or speak…','लिखें या बोलें…')}" maxlength="500" onkeydown="if(event.key==='Enter')ask()" aria-label="Message"><button class="btn fx" onclick="ask()" aria-label="Send">${ic('send')}</button><button class="btn sec fx mic ${S.voice?'on':''}" id="mic" onclick="toggleVoice()" aria-label="Voice mode">${ic(S.voice?'stop':'mic')}</button></div></div>`;
+  const c=$('#c');c.scrollTop=c.scrollHeight;window.scrollTo(0,document.body.scrollHeight)}
+function setLang(l){S.lang=l;P.lang=l;sv('wl_p',P);chat()}
+async function ask(t){const q=$('#q'),text=(t||q.value).trim();if(!text||S.busy)return;S.busy=true;q.value='';
+  S.chat.push({r:'u',text},{r:'a',text:''});chat();const node=$('#c').lastChild;node.textContent='…';
+  const out=await stream(text,'chat',x=>{S.chat[S.chat.length-1].text=x;if(S.tab==='chat'&&node.isConnected){node.textContent=x;window.scrollTo(0,document.body.scrollHeight)}});
+  S.busy=false;if(!out)S.chat[S.chat.length-1].text=S.chat[S.chat.length-1].text||'';
+  if(S.voice&&out)speak(out);else if(S.voice)listen()}
+function stopListen(){try{rec&&rec.abort()}catch{};}
+function listen(){if(!SR){S.voice=false;chat();return toast(T('Voice input needs Chrome, Edge or Safari','वॉइस इनपुट के लिए Chrome, Edge या Safari चाहिए'))}
+  stopListen();rec=new SR();rec.lang=S.lang==='hi'?'hi-IN':'en-IN';rec.interimResults=true;rec.continuous=false;
+  rec.onresult=e=>{const r=[...e.results],t=r.map(x=>x[0].transcript).join('');const q=$('#q');if(q)q.value=t;if(r[r.length-1].isFinal){rec.onend=null;ask()}};
+  rec.onerror=e=>{if(e.error==='not-allowed'){S.voice=false;chat();toast(T('Allow microphone access to use voice','वॉइस के लिए माइक की अनुमति दें'))}};
+  rec.onend=()=>{if(S.voice&&!S.busy&&!speechSynthesis.speaking)setTimeout(listen,400)};
+  try{rec.start()}catch{}}
+function speak(t){speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t),l=S.lang==='hi'?'hi':'en',v=speechSynthesis.getVoices().find(x=>x.lang.toLowerCase().startsWith(l+'-in'))||speechSynthesis.getVoices().find(x=>x.lang.startsWith(l));
+  u.lang=S.lang==='hi'?'hi-IN':'en-IN';if(v)u.voice=v;u.onend=()=>{if(S.voice&&S.tab==='chat')listen()};speechSynthesis.speak(u)}
+function toggleVoice(){S.voice=!S.voice;if(S.voice){listen()}else{stopListen();speechSynthesis.cancel()}chat()}
+render();
+</script>
+</body>
+</html>
