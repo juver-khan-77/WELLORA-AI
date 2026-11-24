@@ -91,13 +91,14 @@ Wellora AI is currently under active development.
 - [x] Initial interface design
 - [x] Home page
 - [x] Analytics interface
-- [ ] User profile system
-- [ ] Authentication
-- [ ] AI assistant integration
-- [ ] Health monitoring system
-- [ ] Diet and workout modules
+- [x] User profile system
+- [x] Authentication
+- [x] AI assistant integration
+- [x] Health monitoring system
+- [x] Diet and workout modules
 - [ ] Database integration
-- [ ] Testing and deployment
+- [x] Testing and deployment
+- [ ] UPDATED UI UX
 
 ## PROJECT VISION
 
