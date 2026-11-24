@@ -2,7 +2,7 @@
   <link href="https://googleapis.com" rel="stylesheet">
 <div align="center" style="font-family: 'Pixelify Sans', monospace;">
 
-# WELLORA AI
+ <h1 style="font-family: 'Press Start 2P', monospace;">WELLORA AI</h1># WELLORA AI
 
 ### INTELLIGENCE FOR BETTER HEALTH.
 
